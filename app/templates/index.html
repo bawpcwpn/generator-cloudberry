@@ -22,7 +22,45 @@
 		<script src="/bower_components/modernizr/modernizr.js"></script>
 		<!-- endbuild --><% } %>
 	</head>
-	<body>
+	<body<% if (includeNunjucks) { %> class="{% block body_class %}{% endblock body_class %}"<% } %>>
+
+		<% if (includeNunjucks) { %>
+		{% block main_content %}
+		{% endblock main_content %}
+		<% } -%>
+
+
+		<!-- build:js scripts/vendor.js -->
+		<!-- bower:js -->
+		<!-- endbower -->
+		<!-- endbuild -->
+		<% if (includeBootstrap) { %>
+		<!-- build:js scripts/plugins.js -->
+		<% bsPlugins.forEach(function (plugin) { -%>
+		<script src="<%= bsPath + plugin %>.js"></script>
+		<% }) -%>
+		<!-- endbuild -->
+		<% } %>
+		<!-- build:js scripts/main.js -->
+		<script src="scripts/main.js"></script>
+		<!-- endbuild -->
+
+		<% if (includeWebfontloader) { %>
+		<script>
+			WebFont.load({
+				google: {
+					families: [
+						'Open Sans:300,400,400italic,700,700italic'
+					]
+				}/*,
+				custom: {
+					families: ['fontname'],
+					urls: ['fonts/fontello/css/fontname.css']
+				}*/
+			});
+		</script>
+		<% } -%>
+
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
@@ -42,19 +80,6 @@
 			ga('send', 'pageview');
 		</script>
 
-		<!-- build:js scripts/vendor.js -->
-		<!-- bower:js -->
-		<!-- endbower -->
-		<!-- endbuild -->
-		<% if (includeBootstrap) { %>
-		<!-- build:js scripts/plugins.js -->
-		<% bsPlugins.forEach(function (plugin) { -%>
-		<script src="<%= bsPath + plugin %>.js"></script>
-		<% }) -%>
-		<!-- endbuild -->
-		<% } %>
-		<!-- build:js scripts/main.js -->
-		<script src="scripts/main.js"></script>
-		<!-- endbuild -->
+
 	</body>
 </html>

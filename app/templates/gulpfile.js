@@ -211,7 +211,7 @@ gulp.task('wiredep', () => {<% if (includeLess) { %>
   gulp.src('app/*.html')
 <% } -%>
     .pipe(wiredep({<% if (includeBootstrap) { if (includeLess) { %>
-      exclude: ['bootstrap-less'],<% } else { %>
+      exclude: ['bootstrap'],<% } else { %>
       exclude: ['bootstrap.js'],<% }} %>
       ignorePath: /^(\.\.\/)*\.\./<% if (includeNunjucks) { -%>,
       fileTypes: {

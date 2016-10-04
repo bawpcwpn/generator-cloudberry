@@ -75,6 +75,10 @@ module.exports = generators.Base.extend({
         value: 'includeNunjucks',
         checked: true
       }, {
+        name: 'Webfontloader',
+        value: 'includeWebfontloader',
+        checked: true
+      }, {
         name: 'Bootstrap',
         value: 'includeBootstrap',
         checked: false
@@ -102,6 +106,7 @@ module.exports = generators.Base.extend({
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
       this.includeNunjucks = hasFeature('includeNunjucks');
+      this.includeWebfontloader = hasFeature('includeWebfontloader');
       this.includeJQuery = answers.includeJQuery;
 
     }.bind(this));
@@ -163,18 +168,18 @@ module.exports = generators.Base.extend({
 
       if (this.includeBootstrap) {
         if (this.includeLess) {
-          bowerJson.dependencies['bootstrap-less'] = '~3.3.5';
+          bowerJson.dependencies['bootstrap'] = '~3.3.7';
           bowerJson.overrides = {
-            'bootstrap-less': {
+            'bootstrap': {
               'main': [
-                'assets/stylesheets/_bootstrap.scss',
+                'assets/stylesheets/_bootstrap.less',
                 'assets/fonts/bootstrap/*',
                 'assets/javascripts/bootstrap.js'
               ]
             }
           };
         } else {
-          bowerJson.dependencies['bootstrap'] = '~3.3.5';
+          bowerJson.dependencies['bootstrap'] = '~3.3.7';
           bowerJson.overrides = {
             'bootstrap': {
               'main': [
@@ -187,11 +192,15 @@ module.exports = generators.Base.extend({
           };
         }
       } else if (this.includeJQuery) {
-        bowerJson.dependencies['jquery'] = '~2.1.1';
+        bowerJson.dependencies['jquery'] = '~3.1.0';
       }
 
       if (this.includeModernizr) {
-        bowerJson.dependencies['modernizr'] = '~2.8.1';
+        bowerJson.dependencies['modernizr'] = '~3.3.1';
+      }
+
+      if (this.includeWebfontloader) {
+        bowerJson.dependencies['webfontloader'] = '^1.6.24';
       }
 
       this.fs.writeJSON('bower.json', bowerJson);
@@ -228,7 +237,7 @@ module.exports = generators.Base.extend({
       var css = 'main';
 
       if (this.includeLess) {
-        css += '.scss';
+        css += '.less';
       } else {
         css += '.css';
       }
@@ -257,7 +266,7 @@ module.exports = generators.Base.extend({
         bsPath = '/bower_components/';
 
         if (this.includeLess) {
-          bsPath += 'bootstrap-less/assets/javascripts/bootstrap/';
+          bsPath += 'bootstrap/assets/javascripts/bootstrap/';
         } else {
           bsPath += 'bootstrap/js/';
         }
@@ -270,7 +279,7 @@ module.exports = generators.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('index.html'),
-        this.destinationPath('app/index.html'),
+        this.destinationPath(indexTemplatePath),
         {
           appname: this.appname,
           includeLess: this.includeLess,
@@ -294,6 +303,12 @@ module.exports = generators.Base.extend({
           ]
         }
       );
+
+      this.fs.copy(
+          this.templatePath('index.njk'),
+          this.destinationPath('app/index.njk')
+      );
+
     },
 
     misc: function () {
@@ -328,18 +343,22 @@ module.exports = generators.Base.extend({
     wiredep({
       bowerJson: bowerJson,
       directory: 'bower_components',
-      exclude: ['bootstrap-less', 'bootstrap.js'],
+      exclude: ['bootstrap', 'bootstrap.js'],
       ignorePath: /^(\.\.\/)*\.\./,
+      <% if (this.includeNunjucks) { %>
+      src: 'app/layouts/base.njk'
+      <% } else { -%>
       src: 'app/index.html'
+      <% } -%>
     });
 
     if (this.includeLess) {
-      // wire Bower packages to .scss
+      // wire Bower packages to .less
       wiredep({
         bowerJson: bowerJson,
         directory: 'bower_components',
         ignorePath: /^(\.\.\/)+/,
-        src: 'app/styles/*.scss'
+        src: 'app/styles/*.less'
       });
     }
   }
