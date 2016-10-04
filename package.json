@@ -1,5 +1,5 @@
 {
-  "name": "Cloudberry",
+  "name": "generator-cloudberry",
   "version": "1.0.0",
   "description": "Scaffold out a front-end web app",
   "license": "BSD-2-Clause",
@@ -24,7 +24,9 @@
     "h5bp",
     "modernizr",
     "jquery",
-    "gulp"
+    "gulp",
+    "less",
+    "nunjucks"
   ],
   "peerDependencies": {
     "yo": ">=1.7.1"
