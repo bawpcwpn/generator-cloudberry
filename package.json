@@ -1,7 +1,7 @@
 {
   "name": "generator-cloudberry",
   "version": "1.0.0",
-  "description": "Scaffold out a front-end web app",
+  "description": "Scaffold out a front-end web app with optionally LESS CSS, Nunjucks and Webfontloader",
   "license": "BSD-2-Clause",
   "repository": "bawpcpwn/cloudberry",
   "author": "The Yeoman Team & Thomas Huxley",

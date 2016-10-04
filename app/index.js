@@ -113,6 +113,8 @@ module.exports = generators.Base.extend({
   },
 
   writing: {
+
+
     gulpfile: function () {
       this.fs.copyTpl(
         this.templatePath('gulpfile.js'),
