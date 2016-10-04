@@ -18,9 +18,12 @@
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^3.0.1",
-    "gulp-load-plugins": "^1.2.4",<% if (includeBabel || includeSass) { %>
-    "gulp-plumber": "^1.0.1",<% } if (includeSass) { %>
-    "gulp-sass": "^2.0.0",<% } %>
+    "gulp-load-plugins": "^1.2.4",<% if (includeBabel || includeLess) { %>
+    "gulp-plumber": "^1.0.1",<% } if (includeLess) { %>
+    "gulp-less": "^3.1.0",<% } if (includeNunjucks) { %>
+    "gulp-nunjucks-render": "^2.0.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-replace": "^0.5.4",<% } %>
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^1.5.0",
     "gulp-uglify": "^2.0.0",

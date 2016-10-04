@@ -63,17 +63,21 @@ module.exports = generators.Base.extend({
       name: 'features',
       message: 'Which additional features would you like to include?',
       choices: [{
-        name: 'Sass',
-        value: 'includeSass',
-        checked: true
-      }, {
-        name: 'Bootstrap',
-        value: 'includeBootstrap',
+        name: 'Less',
+        value: 'includeLess',
         checked: true
       }, {
         name: 'Modernizr',
         value: 'includeModernizr',
         checked: true
+      }, {
+        name: 'Nunjucks',
+        value: 'includeNunjucks',
+        checked: true
+      }, {
+        name: 'Bootstrap',
+        value: 'includeBootstrap',
+        checked: false
       }]
     }, {
       type: 'confirm',
@@ -94,9 +98,10 @@ module.exports = generators.Base.extend({
 
       // manually deal with the response, get back and store the results.
       // we change a bit this way of doing to automatically do this in the self.prompt() method.
-      this.includeSass = hasFeature('includeSass');
+      this.includeLess = hasFeature('includeLess');
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeModernizr = hasFeature('includeModernizr');
+      this.includeNunjucks = hasFeature('includeNunjucks');
       this.includeJQuery = answers.includeJQuery;
 
     }.bind(this));
@@ -111,7 +116,8 @@ module.exports = generators.Base.extend({
           date: (new Date).toISOString().split('T')[0],
           name: this.pkg.name,
           version: this.pkg.version,
-          includeSass: this.includeSass,
+          includeLess: this.includeLess,
+          includeNunjucks: this.includeNunjucks,
           includeBootstrap: this.includeBootstrap,
           includeBabel: this.options['babel'],
           testFramework: this.options['test-framework']
@@ -124,7 +130,8 @@ module.exports = generators.Base.extend({
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         {
-          includeSass: this.includeSass,
+          includeNunjucks: this.includeNunjucks,
+          includeLess: this.includeLess,
           includeBabel: this.options['babel']
         }
       );
@@ -155,10 +162,10 @@ module.exports = generators.Base.extend({
       };
 
       if (this.includeBootstrap) {
-        if (this.includeSass) {
-          bowerJson.dependencies['bootstrap-sass'] = '~3.3.5';
+        if (this.includeLess) {
+          bowerJson.dependencies['bootstrap-less'] = '~3.3.5';
           bowerJson.overrides = {
-            'bootstrap-sass': {
+            'bootstrap-less': {
               'main': [
                 'assets/stylesheets/_bootstrap.scss',
                 'assets/fonts/bootstrap/*',
@@ -220,7 +227,7 @@ module.exports = generators.Base.extend({
     styles: function () {
       var css = 'main';
 
-      if (this.includeSass) {
+      if (this.includeLess) {
         css += '.scss';
       } else {
         css += '.css';
@@ -249,11 +256,16 @@ module.exports = generators.Base.extend({
       if (this.includeBootstrap) {
         bsPath = '/bower_components/';
 
-        if (this.includeSass) {
-          bsPath += 'bootstrap-sass/assets/javascripts/bootstrap/';
+        if (this.includeLess) {
+          bsPath += 'bootstrap-less/assets/javascripts/bootstrap/';
         } else {
           bsPath += 'bootstrap/js/';
         }
+      }
+
+      var indexTemplatePath = 'app/index.html';
+      if(this.includeNunjucks) {
+        indexTemplatePath = 'app/layouts/base.njk'
       }
 
       this.fs.copyTpl(
@@ -261,7 +273,7 @@ module.exports = generators.Base.extend({
         this.destinationPath('app/index.html'),
         {
           appname: this.appname,
-          includeSass: this.includeSass,
+          includeLess: this.includeLess,
           includeBootstrap: this.includeBootstrap,
           includeModernizr: this.includeModernizr,
           includeJQuery: this.includeJQuery,
@@ -316,12 +328,12 @@ module.exports = generators.Base.extend({
     wiredep({
       bowerJson: bowerJson,
       directory: 'bower_components',
-      exclude: ['bootstrap-sass', 'bootstrap.js'],
+      exclude: ['bootstrap-less', 'bootstrap.js'],
       ignorePath: /^(\.\.\/)*\.\./,
       src: 'app/index.html'
     });
 
-    if (this.includeSass) {
+    if (this.includeLess) {
       // wire Bower packages to .scss
       wiredep({
         bowerJson: bowerJson,

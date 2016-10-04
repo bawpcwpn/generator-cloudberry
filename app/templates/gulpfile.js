@@ -9,15 +9,27 @@ const runSequence = require('run-sequence');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-gulp.task('styles', () => {<% if (includeSass) { %>
-  return gulp.src('app/styles/*.scss')
+<% if (includeNunjucks) { %>
+gulp.task('views', () => {
+  return gulp.src('app/*.njk')
+      .pipe($.nunjucksRender({
+        path: 'app'
+      }))
+      .pipe(gulp.dest('.tmp'))
+});
+<% } -%>
+
+gulp.task('styles', () => {<% if (includeLess) { %>
+  return gulp.src('app/styles/main.less')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
-    .pipe($.sass.sync({
-      outputStyle: 'expanded',
-      precision: 10,
-      includePaths: ['.']
-    }).on('error', $.sass.logError))<% } else { %>
+    .pipe($.less({
+      paths: ['.']
+    }))
+    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(reload({stream: true}))<% } else { %>
   return gulp.src('app/styles/*.css')
     .pipe($.sourcemaps.init())<% } %>
     .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
@@ -66,12 +78,13 @@ gulp.task('lint:test', () => {
     .pipe(gulp.dest('test/spec'));
 });
 
-<% if (includeBabel) { -%>
-gulp.task('html', ['styles', 'scripts'], () => {
-<% } else { -%>
-gulp.task('html', ['styles'], () => {
-<% } -%>
+
+gulp.task('html', [<% if (includeNunjucks) { %>'views', <% } %>'styles'<% if (includeBabel) { %>, 'scripts'<% } %>], () => {
+<% if (includeNunjucks) { -%>
+  return gulp.src(['app/*.html', '.tmp/*.html'])
+<% } else { %->
   return gulp.src('app/*.html')
+<% } -%>
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cssnano({safe: true, autoprefixer: false})))
@@ -96,6 +109,9 @@ gulp.task('extras', () => {
   return gulp.src([
     'app/*',
     '!app/*.html'
+    <% if (includeNunjucks) { -%>
+    '!app/*.njk'
+    <% } -%>
   ], {
     dot: true
   }).pipe(gulp.dest('dist'));
@@ -104,7 +120,7 @@ gulp.task('extras', () => {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', () => {
-  runSequence(['clean', 'wiredep'], ['styles'<% if (includeBabel) { %>, 'scripts'<% } %>, 'fonts'], () => {
+  runSequence(['clean', 'wiredep'], [<% if (includeNunjucks) { %>'views', <% } %>'styles'<% if (includeBabel) { %>, 'scripts'<% } %>, 'fonts'], () => {
     browserSync({
       notify: false,
       port: 9000,
@@ -118,6 +134,9 @@ gulp.task('serve', () => {
 
     gulp.watch([
       'app/*.html',
+  <% if (includeNunjucks) { -%>
+      '.tmp/*.html',
+  <% } -%>
   <% if (!includeBabel) { -%>
       'app/scripts/**/*.js',
   <% } -%>
@@ -125,7 +144,11 @@ gulp.task('serve', () => {
       '.tmp/fonts/**/*'
     ]).on('change', reload);
 
-    gulp.watch('app/styles/**/*.<%= includeSass ? 'scss' : 'css' %>', ['styles']);
+  <% if (includeNunjucks) { -%>
+    gulp.watch('app/**/*.html', ['views']);
+    gulp.watch('app/**/*.njk', ['views']);
+  <% } -%>
+    gulp.watch('app/styles/**/*.<%= includeLess ? 'less' : 'css' %>', ['styles']);
   <% if (includeBabel) { -%>
     gulp.watch('app/scripts/**/*.js', ['scripts']);
   <% } -%>
@@ -166,6 +189,7 @@ gulp.task('serve:test', () => {
     }
   });
 
+
 <% if (includeBabel) { -%>
   gulp.watch('app/scripts/**/*.js', ['scripts']);
 <% } -%>
@@ -174,20 +198,42 @@ gulp.task('serve:test', () => {
 });
 
 // inject bower components
-gulp.task('wiredep', () => {<% if (includeSass) { %>
-  gulp.src('app/styles/*.scss')
+gulp.task('wiredep', () => {<% if (includeLess) { %>
+  gulp.src('app/styles/*.less')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
     }))
     .pipe(gulp.dest('app/styles'));
 <% } %>
+<% if (includeNunjucks) { -%>
+  gulp.src('app/layouts/*.njk')
+<% } else { -%>
   gulp.src('app/*.html')
-    .pipe(wiredep({<% if (includeBootstrap) { if (includeSass) { %>
-      exclude: ['bootstrap-sass'],<% } else { %>
+<% } -%>
+    .pipe(wiredep({<% if (includeBootstrap) { if (includeLess) { %>
+      exclude: ['bootstrap-less'],<% } else { %>
       exclude: ['bootstrap.js'],<% }} %>
-      ignorePath: /^(\.\.\/)*\.\./
+      ignorePath: /^(\.\.\/)*\.\./<% if (includeNunjucks) { -%>,
+      fileTypes: {
+        njk: {
+          block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
+          detect: {
+            js: /<script.*src=['"]([^'"]+)/gi,
+            css: /<link.*href=['"]([^'"]+)/gi
+          },
+          replace: {
+            js: '<script src="{{filePath}}"></script>',
+            css: '<link rel="stylesheet" href="{{filePath}}" />'
+          }
+        }
+      }
+      <% } -%>
     }))
+    <% if(includeNunjucks) { -%>
+    .pipe(gulp.dest('app/layouts'));
+    <% } else { -%>
     .pipe(gulp.dest('app'));
+    <% } -%>
 });
 
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
