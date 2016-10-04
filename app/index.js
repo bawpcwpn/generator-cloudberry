@@ -341,17 +341,18 @@ module.exports = generators.Base.extend({
       return;
     }
 
+    var wiredDepSrc = 'app/index.html';
+    if(this.includeNunjucks) {
+      wiredDepSrc = 'app/layouts/base.njk';
+    }
+
     // wire Bower packages to .html
     wiredep({
       bowerJson: bowerJson,
       directory: 'bower_components',
       exclude: ['bootstrap', 'bootstrap.js'],
       ignorePath: /^(\.\.\/)*\.\./,
-      <% if (this.includeNunjucks) { %>
-      src: 'app/layouts/base.njk'
-      <% } else { -%>
-      src: 'app/index.html'
-      <% } -%>
+      src: wiredDepSrc
     });
 
     if (this.includeLess) {
