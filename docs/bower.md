@@ -4,7 +4,7 @@ We moved `bower_components` to the project root, read [this post](http://yeoman.
 
 Basically:
 
-* paths in Sass `@import` directives should begin with `bower_components`
+* paths in Less `@import` directives should begin with `bower_components`
 * paths in HTML should begin with `/bower_components`
 
 Both paths will work regardless of the nesting level, e.g. they would work on a `about/contact/index.html` page too.

@@ -56,7 +56,7 @@ As you might have noticed, gulp plugins (the ones that begin with `gulp-`) don't
 
 ## Serve
 
-We use the `.tmp` directory mostly for compiling assets like SCSS files. It has precedence over `app`, so if you had an `app/index.html` template compiling to `.tmp/index.html`, http://localhost:9000 would point to `.tmp/index.html`, which is what we want.
+We use the `.tmp` directory mostly for compiling assets like LESS files. It has precedence over `app`, so if you had an `app/index.html` template compiling to `.tmp/index.html`, http://localhost:9000 would point to `.tmp/index.html`, which is what we want.
 
 This system can be a little confusing with the `watch` task, but it's actually pretty simple:
 
