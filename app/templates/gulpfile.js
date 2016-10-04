@@ -9,7 +9,7 @@ const runSequence = require('run-sequence');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-<% if (includeNunjucks) { %>
+<% if (includeNunjucks) { -%>
 gulp.task('views', () => {
   return gulp.src('app/*.njk')
       .pipe($.nunjucksRender({
@@ -19,7 +19,7 @@ gulp.task('views', () => {
 });
 <% } -%>
 
-gulp.task('styles', () => {<% if (includeLess) { %>
+gulp.task('styles', () => {<% if (includeLess) { -%>
   return gulp.src('app/styles/main.less')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
@@ -29,9 +29,9 @@ gulp.task('styles', () => {<% if (includeLess) { %>
     .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream: true}))<% } else { %>
+    .pipe(reload({stream: true}))<% } else { -%>
   return gulp.src('app/styles/*.css')
-    .pipe($.sourcemaps.init())<% } %>
+    .pipe($.sourcemaps.init())<% } -%>
     .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
@@ -204,7 +204,7 @@ gulp.task('wiredep', () => {<% if (includeLess) { %>
       ignorePath: /^(\.\.\/)+/
     }))
     .pipe(gulp.dest('app/styles'));
-<% } %>
+<% } -%>
 <% if (includeNunjucks) { -%>
   gulp.src('app/layouts/*.njk')
 <% } else { -%>

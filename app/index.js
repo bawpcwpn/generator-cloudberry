@@ -288,6 +288,7 @@ module.exports = generators.Base.extend({
           includeBootstrap: this.includeBootstrap,
           includeModernizr: this.includeModernizr,
           includeJQuery: this.includeJQuery,
+          includeWebfontloader: this.includeWebfontloader,
           bsPath: bsPath,
           bsPlugins: [
             'affix',

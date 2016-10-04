@@ -1,6 +1,6 @@
 {
   "name": "generator-cloudberry",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "Scaffold out a front-end web app with optionally LESS CSS, Nunjucks and Webfontloader",
   "license": "BSD-2-Clause",
   "repository": "bawpcpwn/cloudberry",
