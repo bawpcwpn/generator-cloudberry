@@ -2,9 +2,11 @@ Description:
     Creates a new basic front-end web application.
 
 Options:
-    Sass: Include Sass
-    Bootstrap: Include Bootstrap or Bootstrap Sass if Sass is included
+    Sass: Include Less
+    Bootstrap: Include Bootstrap or Bootstrap Less if Less is included
     Modernizr: Include Modernizr
+    Nunjucks: Include Nunjucks
+    Webfontloader: Include Webfontloader
     Babel: Use ES2015 features by using Babel
 
 Example:

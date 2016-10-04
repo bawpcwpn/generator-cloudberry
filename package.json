@@ -1,10 +1,10 @@
 {
-  "name": "generator-webapp",
-  "version": "2.2.0",
+  "name": "Cloudberry",
+  "version": "1.0.0",
   "description": "Scaffold out a front-end web app",
   "license": "BSD-2-Clause",
-  "repository": "yeoman/generator-webapp",
-  "author": "The Yeoman Team",
+  "repository": "bawpcpwn/cloudberry",
+  "author": "The Yeoman Team & Thomas Huxley",
   "main": "app/index.js",
   "engines": {
     "node": ">=4",
