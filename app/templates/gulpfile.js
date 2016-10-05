@@ -134,24 +134,24 @@ gulp.task('serve', () => {
 
     gulp.watch([
       'app/*.html',
-  <% if (includeNunjucks) { -%>
+    <% if (includeNunjucks) { -%>
       '.tmp/*.html',
-  <% } -%>
-  <% if (!includeBabel) { -%>
+    <% } -%>
+    <% if (!includeBabel) { -%>
       'app/scripts/**/*.js',
-  <% } -%>
+    <% } -%>
       'app/images/**/*',
       '.tmp/fonts/**/*'
     ]).on('change', reload);
 
-  <% if (includeNunjucks) { -%>
+    <% if (includeNunjucks) { -%>
     gulp.watch('app/**/*.html', ['views']);
     gulp.watch('app/**/*.njk', ['views']);
-  <% } -%>
+    <% } -%>
     gulp.watch('app/styles/**/*.<%= includeLess ? 'less' : 'css' %>', ['styles']);
-  <% if (includeBabel) { -%>
+    <% if (includeBabel) { -%>
     gulp.watch('app/scripts/**/*.js', ['scripts']);
-  <% } -%>
+    <% } -%>
     gulp.watch('app/fonts/**/*', ['fonts']);
     gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
@@ -199,7 +199,7 @@ gulp.task('serve:test', () => {
 
 // inject bower components
 gulp.task('wiredep', () => {<% if (includeLess) { -%>
-  gulp.src('app/styles/*.less')
+  gulp.src('app/styles/main.less')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
     }))
