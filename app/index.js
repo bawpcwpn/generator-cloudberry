@@ -280,7 +280,7 @@ module.exports = generators.Base.extend({
       }
 
       this.fs.copyTpl(
-        this.templatePath('index.html'),
+        this.templatePath('index'),
         this.destinationPath(indexTemplatePath),
         {
           appname: this.appname,

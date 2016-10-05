@@ -198,7 +198,7 @@ gulp.task('serve:test', () => {
 });
 
 // inject bower components
-gulp.task('wiredep', () => {<% if (includeLess) { %>
+gulp.task('wiredep', () => {<% if (includeLess) { -%>
   gulp.src('app/styles/*.less')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
