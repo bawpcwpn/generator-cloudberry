@@ -22,9 +22,12 @@
 		<script src="/bower_components/modernizr/modernizr.js"></script>
 		<!-- endbuild --><% } %>
 	</head>
-	<body>
+	<body<% if (includeNunjucks) { %> class="{% block body_class %}{% endblock body_class %}"<% } %>>
 
-
+		<% if (includeNunjucks) { -%>
+		{% block main_content %}
+		{% endblock main_content %}
+		<% } -%>
 
 
 		<!-- build:js scripts/vendor.js -->

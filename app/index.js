@@ -280,7 +280,7 @@ module.exports = generators.Base.extend({
       }
 
       this.fs.copyTpl(
-        this.templatePath('index'),
+        this.templatePath('index.html'),
         this.destinationPath(indexTemplatePath),
         {
           appname: this.appname,
@@ -289,6 +289,7 @@ module.exports = generators.Base.extend({
           includeModernizr: this.includeModernizr,
           includeJQuery: this.includeJQuery,
           includeWebfontloader: this.includeWebfontloader,
+          includeNunjucks: this.includeNunjucks,
           bsPath: bsPath,
           bsPlugins: [
             'affix',

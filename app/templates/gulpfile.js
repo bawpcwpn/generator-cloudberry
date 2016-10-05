@@ -82,7 +82,7 @@ gulp.task('lint:test', () => {
 gulp.task('html', [<% if (includeNunjucks) { %>'views', <% } %>'styles'<% if (includeBabel) { %>, 'scripts'<% } %>], () => {
 <% if (includeNunjucks) { -%>
   return gulp.src(['app/*.html', '.tmp/*.html'])
-<% } else { %->
+<% } else { -%>
   return gulp.src('app/*.html')
 <% } -%>
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
@@ -109,7 +109,7 @@ gulp.task('extras', () => {
   return gulp.src([
     'app/*',
     '!app/*.html'
-    <% if (includeNunjucks) { -%>
+    <% if (includeNunjucks) { -%>,
     '!app/*.njk'
     <% } -%>
   ], {
