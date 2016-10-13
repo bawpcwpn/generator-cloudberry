@@ -9,7 +9,7 @@ This is an easy way publish your site with rsynch to serve the generated static 
 Install the [gulp-rsync](https://github.com/jerrysu/gulp-rsync) gulp plugin:
 
 ```
-$ npm install --save-dev gulp-rsync
+$ yarn add gulp-rsync --dev
 ```
 
 ### 2. Create a `rsync config` file

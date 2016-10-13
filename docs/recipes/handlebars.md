@@ -10,7 +10,7 @@ This recipe shows how to set up Handlebars to precompile your templates, includi
 Install some gulp plugins:
 
 ```
-$ npm install --save-dev gulp-handlebars gulp-define-module gulp-declare
+$ yarn add gulp-handlebars gulp-define-module gulp-declare --dev
 ```
 
 * [gulp-handlebars](https://github.com/lazd/gulp-handlebars) precompiles raw `.hbs` templates into JavaScript

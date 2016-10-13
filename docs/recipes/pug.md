@@ -26,7 +26,7 @@ If you had something different in mind, modify paths accordingly.
 Install the Pug gulp plugin:
 
 ```
-$ npm install --save-dev gulp-pug
+$ yarn add gulp-pug --dev
 ```
 
 ### 2. Create a `views` task

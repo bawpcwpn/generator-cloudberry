@@ -14,7 +14,7 @@ Follow the steps in the React recipe to get set up with React and JSX.
 Install [React Router](https://github.com/rackt/react-router) and [webpack](https://github.com/webpack/webpack) (bundler for JavaScript modules):
 
 ```
-$ npm install --save-dev react-router webpack
+$ yarn add react-router webpack --dev
 ```
 
 ### 3. Add a `webpack` script

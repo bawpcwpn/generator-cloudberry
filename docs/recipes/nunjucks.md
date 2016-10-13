@@ -26,7 +26,7 @@ If you had something different in mind, modify paths accordingly.
 Install [gulp-nunjucks-render](https://github.com/carlosl/gulp-nunjucks-render) to render Nunjucks template language to HTML:
 
 ```
-$ npm install --save-dev gulp-nunjucks-render
+$ yarn add gulp-nunjucks-render --dev
 ```
 
 ### 2. Modify `app/index.html` to create as `app/layouts/default.njk` layouts template

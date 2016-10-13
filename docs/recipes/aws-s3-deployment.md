@@ -10,7 +10,7 @@ This recipe demonstrates how to set up AWS S3 deployment task.
 Install the [gulp-awspublish](https://github.com/pgherveou/gulp-awspublish) gulp plugin:
 
 ```
-$ npm install --save-dev gulp-awspublish
+$ yarn add gulp-awspublish --dev
 ```
 
 ### 2. Create a `deploy` task

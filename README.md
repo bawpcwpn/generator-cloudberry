@@ -25,8 +25,9 @@ Please see our [gulpfile](app/templates/gulpfile.js) for up to date information 
 
 ## Getting Started
 
-- Install dependencies: `npm install --global yo gulp-cli bower`
-- Install the generator: `npm install --global generator-webapp`
+- Install [Yarn package manager[(https://yarnpkg.com): [Instructions](https://yarnpkg.com/en/docs/install)
+- Install dependencies: `yarn install --global yo gulp-cli bower`
+- Install the generator: `yarn install --global generator-webapp`
 - Run `yo webapp` to scaffold your webapp
 - Run `gulp serve` to preview and watch for changes
 - Run `bower install --save <package>` to install frontend dependencies
@@ -49,7 +50,7 @@ Please see our [gulpfile](app/templates/gulpfile.js) for up to date information 
 - `--skip-install-message`
   Skips the the message displayed after scaffolding has finished and before the dependencies are being installed.
 - `--skip-install`
-  Skips the automatic execution of `bower` and `npm` after scaffolding has finished.
+  Skips the automatic execution of `bower` and `yarn` after scaffolding has finished.
 - `--test-framework=<framework>`
   Either `mocha` or `jasmine`. Defaults to `mocha`.
 - `--no-babel`

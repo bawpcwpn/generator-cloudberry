@@ -9,7 +9,7 @@ In this very simple recipe you'll learn how to set up linting with [HTMLHint] us
 We need to install gulp-htmlhint as a dependency:
 
 ```sh
-$ npm install --save-dev gulp-htmlhint
+$ yarn add gulp-htmlhint --dev
 ```
 
 ### 2. Create the task

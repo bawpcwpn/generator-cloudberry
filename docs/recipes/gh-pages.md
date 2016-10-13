@@ -15,7 +15,7 @@ Deploying your app using `git subtree` allows the use of [GitHub Pages](https://
 ### 1. Install [gulp-subtree](https://github.com/Snugug/gulp-subtree) & [gulp-clean](https://github.com/peter-vilja/gulp-clean)
 
 ```
-$ npm install --save-dev gulp-subtree gulp-clean
+$ yarn add gulp-subtree gulp-clean --dev
 ```
 
 ### 2. Create a `deploy` task

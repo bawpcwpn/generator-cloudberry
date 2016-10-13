@@ -11,12 +11,12 @@ It sounds odd but this is the easiest way, because the task tree will be set up 
 
 But don't choose Bootstrap in the generator – it's easier to manually set up the Less version of Bootstrap afterwards, if you need it.
 
-### 2. Switch your npm dependencies
+### 2. Switch your yarn dependencies
 
 Remove gulp-sass and install [gulp-less](https://github.com/plus3network/gulp-less) instead:
 
 ```
-$ npm uninstall --save-dev gulp-sass && npm install --save-dev gulp-less
+$ yarn remove gulp-sass && yarn add gulp-less --dev
 ```
 
 ### 3. Edit a few tasks

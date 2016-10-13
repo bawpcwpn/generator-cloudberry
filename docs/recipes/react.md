@@ -9,7 +9,7 @@ This recipe gets you set up with React, including precompilation of JSX into Jav
 Install [gulp-babel](https://github.com/babel/gulp-babel), and the required presets for transforming JSX templates into vanilla JavaScript:
 
 ```
-$ npm install --save-dev gulp-babel babel-preset-es2015 babel-preset-react
+$ yarn add gulp-babel babel-preset-es2015 babel-preset-react --dev
 ```
 
 Install [React](https://github.com/facebook/react) itself as a Bower component:

@@ -332,7 +332,7 @@ module.exports = generators.Base.extend({
 		var bowerJson = this.fs.readJSON(this.destinationPath('bower.json'));
 		var howToInstall =
 			'\nAfter running ' +
-			chalk.yellow.bold('npm install & bower install') +
+			chalk.yellow.bold('yarn install & bower install') +
 			', inject your' +
 			'\nfront end dependencies by running ' +
 			chalk.yellow.bold('gulp wiredep') +

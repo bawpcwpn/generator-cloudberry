@@ -8,7 +8,7 @@ With this setup you can import modules into your `main.js`. Only code used in `m
 ### 1. Install the required plugins
 
 ```
-$ npm install --save-dev browserify babelify vinyl-buffer vinyl-source-stream
+$ yarn add browserify babelify vinyl-buffer vinyl-source-stream --dev
 ```
 
 ### 2. Edit your `scripts` task
