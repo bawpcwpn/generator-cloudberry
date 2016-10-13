@@ -26,8 +26,8 @@ Please see our [gulpfile](app/templates/gulpfile.js) for up to date information 
 ## Getting Started
 
 - Install [Yarn package manager[(https://yarnpkg.com): [Instructions](https://yarnpkg.com/en/docs/install)
-- Install dependencies: `yarn install --global yo gulp-cli bower`
-- Install the generator: `yarn install --global generator-webapp`
+- Install dependencies: `yarn global add yo gulp-cli bower`
+- Install the generator: `yarn global add generator-webapp`
 - Run `yo webapp` to scaffold your webapp
 - Run `gulp serve` to preview and watch for changes
 - Run `bower install --save <package>` to install frontend dependencies
