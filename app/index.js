@@ -63,6 +63,10 @@ module.exports = generators.Base.extend({
 			name: 'features',
 			message: 'Which additional features would you like to include?',
 			choices: [{
+				name: 'Yarn',
+				value: 'useYarn',
+				checked: true
+			}, {
 				name: 'Less',
 				value: 'includeLess',
 				checked: true
@@ -102,6 +106,7 @@ module.exports = generators.Base.extend({
 
 			// manually deal with the response, get back and store the results.
 			// we change a bit this way of doing to automatically do this in the self.prompt() method.
+			this.useYarn = hasFeature('useYarn');
 			this.includeLess = hasFeature('includeLess');
 			this.includeBootstrap = hasFeature('includeBootstrap');
 			this.includeModernizr = hasFeature('includeModernizr');
@@ -329,10 +334,19 @@ module.exports = generators.Base.extend({
 	},
 
 	end: function () {
+
+		var installDependenciesType = 'yarn install';
+
+		if(!this.useYarn) {
+			installDependenciesType = 'npm install';
+		}
+
+		var installString = installDependenciesType + ' && bower install';
+
 		var bowerJson = this.fs.readJSON(this.destinationPath('bower.json'));
 		var howToInstall =
 			'\nAfter running ' +
-			chalk.yellow.bold('yarn install & bower install') +
+			chalk.yellow.bold(installString) +
 			', inject your' +
 			'\nfront end dependencies by running ' +
 			chalk.yellow.bold('gulp wiredep') +
